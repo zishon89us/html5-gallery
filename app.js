@@ -19,14 +19,15 @@ var app = express();
  app.set('mongodb-uri', process.env.MONGOLAB_URI || 'localhost/sampledb');
 
  //setup mongoose
- app.db = mongoose.createConnection(app.get('mongodb-uri'));
+ app.db = mongoose.createConnection(app.get('m ongodb-uri'));
  app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
  app.db.once('open', function () {
     console.log('mongoose open for business');
 });
-
  require('./models')(app, mongoose);
+
  */
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
@@ -45,6 +46,14 @@ app.use(function(req, res, next) {
         next();
     }
 });
+
+// catch the uncaught errors that weren't wrapped in a domain or try catch statement
+process.on('uncaughtException', function(err) {
+    // handle the error safely
+    console.log("Global Exception Handler");
+    console.log(err);
+});
+
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 //app.engine('html', require('ejs').renderFile);
@@ -54,11 +63,15 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
+
+// the asynchronous or synchronous code that emits the otherwise uncaught error
+var err = new Error('example');
+throw err;
+
 //app.get('/', routes.index);
 require('./routes')(app, null);
 
 var server =  http.createServer(app);
-
 
 
 server.listen(process.env.PORT || app.get('port'), function(){
@@ -66,3 +79,19 @@ server.listen(process.env.PORT || app.get('port'), function(){
 
 });
 
+
+
+
+// catch the uncaught errors that weren't wrapped in a domain or try catch statement
+// do not use this in modules, but only in applications, as otherwise we could have multiple of these bound
+process.on('uncaughtException', function(err) {
+    // handle the error safely
+    console.log("Global Error Handling")
+    console.log(err);
+
+    /*    server.listen(process.env.PORT || app.get('port'), function(){
+     console.log('Express server listening on port ' + app.get('port'));
+
+     });*/
+
+});
