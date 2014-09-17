@@ -1,12 +1,9 @@
 /**
  * Created with JetBrains WebStorm.
- * User: zeeshan
- * Date: 9/13/13
- * Time: 5:26 PM
- * To change this template use File | Settings | File Templates.
+ * User: Zeeshan Hassan
  */
 
 
 exports.addUser = function(req, res){
-    res.send({data:"hello"});
+    res.send({data:"Hey! There..."});
 };
