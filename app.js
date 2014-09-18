@@ -63,11 +63,6 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
-
-// the asynchronous or synchronous code that emits the otherwise uncaught error
-var err = new Error('example');
-throw err;
-
 //app.get('/', routes.index);
 require('./routes')(app, null);
 
