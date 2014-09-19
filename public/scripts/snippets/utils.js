@@ -88,7 +88,7 @@
                 currentObject[attr] = currentObject[attr] || {};
             }
             catch ( e ) {
-                console.log( "cannot create " + attr + " from " + name );
+	            console.log( "cannot create " + attr + " from " + name );
                 throw new Error( "Namespace Allready aquired by a non-object", "Namespace Allready aquired by non-object" );
             }
             currentObject = currentObject[attr];
@@ -102,7 +102,7 @@
                 }
             }
             catch ( e ) {
-                console.log( "cannot create " + i + " from " + name );
+	            console.log( "cannot create " + i + " from " + name );
                 throw new Error( "Namespace Allready aquired by a non-object", "Namespace Allready aquired by non-object" );
             }
         }
@@ -115,41 +115,41 @@
         }
     }
 
-    // ---- context is the context will found in every then ----
-    function Promise( worker, context ) {
-        var that = this;
-        this._thens = [];
+	// ---- context is the context will found in every then ----
+	function Promise( worker, context ) {
+		var that = this;
+		this._thens = [];
 
-        function success( ) {
-            var args = arguments;
-            for (var i = 0; i < that._thens.length; i++) {
-                args = [that._thens[i].success.apply( context, args )];
-                that._thens.splice( i--, 1 );
-            }
-        }
-        function failure( ) {
-            var args = arguments;
-            for ( var i = 0; i < that._thens.length; i++ ) {
-                args = [that._thens[i].failure.apply( context, args )];
-                that._thens.splice( i--, 1 );
-            }
-        }
-        setTimeout( function () {
-            worker.call( context, success, failure );
-        }, 0 );
-        this.resolve = success;
-        this.reject = failure;
-    }
+		function success( ) {
+			var args = arguments;
+			for (var i = 0; i < that._thens.length; i++) {
+				args = [that._thens[i].success.apply( context, args )];
+				that._thens.splice( i--, 1 );
+			}
+		}
+		function failure( ) {
+			var args = arguments;
+			for ( var i = 0; i < that._thens.length; i++ ) {
+				args = [that._thens[i].failure.apply( context, args )];
+				that._thens.splice( i--, 1 );
+			}
+		}
+		setTimeout( function () {
+			worker.call( context, success, failure );
+		}, 0 );
+		this.resolve = success;
+		this.reject = failure;
+	}
 
-    Promise.prototype.then = function ( success, failure ) {
-        if ( success instanceof Function ) {
-            if ( !(failure instanceof Function) ) {
-                failure = function ( arg ) { return arg; };
-            }
-            this._thens.push( { success: success, failure: failure } );
-        }
-        return this;
-    }
+	Promise.prototype.then = function ( success, failure ) {
+		if ( success instanceof Function ) {
+			if ( !(failure instanceof Function) ) {
+				failure = function ( arg ) { return arg; };
+			}
+			this._thens.push( { success: success, failure: failure } );
+		}
+		return this;
+	}
 
 
     // **************--- helping Methods ---************** \\

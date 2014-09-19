@@ -21,36 +21,37 @@
                 data-tree-model="topicTree"
                 data-node-id="topicId"
                 data-node-label="topicName"
-                data-node-children="children" class="angular-tree" >
+                data-node-children="children" class="angular-tree">
         </div>
     </div>
 
 
     <div class="itemsContainer_organizeMe" ng-show="topicTree.currentNode && topicTree.currentNode.dataContainer">
 
-        <div ng-repeat="item in topicTree.currentNode.children" class="itemContainer" >
+        <div ng-repeat="item in topicTree.currentNode.children" class="itemContainer">
 
-            <div class="iconBody_organizeMe span3" ng-draggable="true" ng-style="item.position" >
+            <div class="iconBody_organizeMe span3" ng-draggable="true" ng-style="item.position">
 
                 <div class="hookContainer">
                     &nbsp;
-                    <img src="/img/hook.png" ng-click="handleDelete($index, $event)"  >
+                    <img src="/img/hook.png" ng-click="handleDelete($index, $event)">
                 </div>
 
 
-                <div style="height:100%" >
+                <div style="height:100%">
 
                     <div class="iconContainer" set-background="item">
 
                         <div class="iconHeader_organizeMe">
-                            <p ng-blur="onTopicNameChange($event, item)"  contenteditable="true">{{item.topicName}}</p>
+                            <p ng-blur="onTopicNameChange($event, item)" contenteditable="true">{{item.topicName}}</p>
                         </div>
 
-                        <div class="content_organizeMe" ng-click="topicTree.currentNode.selected=undefined;topicTree.currentNode=item;topicTree.currentNode.selected='selected'">
+                        <div class="content_organizeMe"
+                             ng-click="topicTree.currentNode.selected=undefined;topicTree.currentNode=item;topicTree.currentNode.selected='selected'">
 
                             <div ng-show="topicTree.currentNode.children.length>0 && item.dataContainer==true && item.children.length>0">
                                 <span>{{item.children.length}}</span>
-                                <img  src="/img/childsContainer_organizeMe.png" style="" />
+                                <img src="/img/childsContainer_organizeMe.png" style=""/>
                             </div>
 
 
@@ -69,7 +70,8 @@
     </div>
 
 
-    <div class="span12 itemsContainer_organizeMe" ng-show="topicTree.currentNode && !topicTree.currentNode.dataContainer && !topicTree.currentNode.isNotNode">
+    <div class="span12 itemsContainer_organizeMe"
+         ng-show="topicTree.currentNode && !topicTree.currentNode.dataContainer && !topicTree.currentNode.isNotNode">
 
         <!--<div style="text-align:center">-->
         <!--<img  src="/img/hook.png" width=25 height=25 style="position:absolute;margin-top:-40px" >-->
@@ -79,15 +81,15 @@
 
             <!--ng-content-change="onTopicNameChange($event)"-->
             <!--ng-model="topicTree.currentNode.topicName"-->
-            <div  class="itemHeader_organizeMe" >
+            <div class="itemHeader_organizeMe">
 
                 <div class="hookContainer">
                     &nbsp;
-                    <img src="/img/hook.png"  />
+                    <img src="/img/hook.png"/>
                 </div>
 
-                <div class="titleEditor" >
-                       <span ng-blur="onTopicNameChange($event, topicTree.currentNode)"  contenteditable="true">
+                <div class="titleEditor">
+                       <span ng-blur="onTopicNameChange($event, topicTree.currentNode)" contenteditable="true">
                            {{topicTree.currentNode.topicName}}
                        </span>
                 </div>
@@ -98,14 +100,14 @@
             <div style="overflow: auto;height: 100%">
                 <!--<div ng-bind-html-unsafe="topicTree.currentNode.note" ng-content-change="onTopicContentChange($event)" class="itemContent_organizeMe" contenteditable="true">-->
 
-                <div ng-bind-html-unsafe="topicTree.currentNode.note" ng-blur="onTopicContentChange($event)" class="itemContent_organizeMe" contenteditable="true">
+                <div ng-bind-html-unsafe="topicTree.currentNode.note" ng-blur="onTopicContentChange($event)"
+                     class="itemContent_organizeMe" contenteditable="true">
 
                     <!--{{topicTree.currentNode.note}}-->
                 </div>
             </div>
 
         </div>
-
 
 
     </div>

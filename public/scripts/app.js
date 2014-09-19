@@ -1,7 +1,7 @@
 'use strict';
 
-var sampleApp = angular.module('sampleApp', ['ui.bootstrap', 'ngResource'])
-    .config(['$routeProvider', function($routeProvider) {
+var sampleApp = angular.module('sampleApp', ['ui.bootstrap', 'ngResource', 'angularTreeview', 'pageslide-directive'])
+    .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'partials/main.html',
