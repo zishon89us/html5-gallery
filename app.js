@@ -66,7 +66,20 @@ if ('development' == app.get('env')) {
 //app.get('/', routes.index);
 require('./routes')(app, null);
 
+
 var server =  http.createServer(app);
+
+var io = require('socket.io').listen(server);
+
+io.configure(function () {
+    io.set('transports', ['xhr-polling']);
+});
+
+io.sockets.on('connection', function (socket) {
+    //----->> - Socket Listeners - <<-----
+    //console.log("socket client connected");
+    require("./realTimeServer").initialize( io, socket );
+});
 
 
 server.listen(process.env.PORT || app.get('port'), function(){
